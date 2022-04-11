@@ -1,6 +1,7 @@
 # MyBUPTinOne
 ![](https://unv-shield.librian.net/api/unv_shield?repo=Nova-Noir/MyBUPTinOne)
-![](https://unv-shield.librian.net/api/unv_shiedl?txt=NovaNo1r&url=https://avatars.githubusercontent.com/u/68760718)
+![](https://unv-shield.librian.net/api/unv_shield?txt=NovaNo1r%20&url=https://avatars.githubusercontent.com/u/68760718)
+
 ***[EN](README_CN.md)* | *中文***
 
 使用 PyQT5 编写的应用程序，帮助你一键获取各种信息（作业、课程表以及更多）

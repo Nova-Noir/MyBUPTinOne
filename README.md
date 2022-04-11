@@ -1,6 +1,7 @@
 # MyBUPTinOne
 ![](https://unv-shield.librian.net/api/unv_shield?repo=Nova-Noir/MyBUPTinOne)
-![](https://unv-shield.librian.net/api/unv_shiedl?txt=NovaNo1r&url=https://avatars.githubusercontent.com/u/68760718)
+![](https://unv-shield.librian.net/api/unv_shield?txt=NovaNo1r%20&url=https://avatars.githubusercontent.com/u/68760718)
+
 ***EN* | [中文](README_CN.md)**
 
 An application written in PyQT5, helps you to get information(homework, class scheduler etc.) with only 1 click.
