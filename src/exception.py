@@ -8,3 +8,8 @@ class LoginRequireException(BaseException):
 
 class ProxyError(BaseException):
     pass
+
+
+class QRCodeExpiredException(BaseException):
+    pass
+

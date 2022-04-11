@@ -12,6 +12,9 @@ class Net:
         return r
 
     async def close(self):
+        """
+        You should always close it before session close.
+        """
         await self.session.close()
 
     async def __aexit__(self):
