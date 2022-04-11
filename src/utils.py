@@ -1,5 +1,5 @@
-from typing import TypeVar, Callable, Coroutine, Union
 from datetime import datetime
+from typing import TypeVar, Callable, Coroutine, Union
 
 from .exception import LoginRequireException, QRCodeExpiredException
 
@@ -22,4 +22,5 @@ def on_qrcode_login(func: T):
             if cls.qrcode_expire_time > datetime.now().timestamp():
                 return func(cls, *args, **kwargs)
         raise QRCodeExpiredException("QRCode has expired or invalid.")
+
     return wrapper

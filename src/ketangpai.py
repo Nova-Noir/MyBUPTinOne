@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Union, Tuple
+from typing import Tuple
 
 from .basicNet import Net
 from .config import (KTP_WECHAT_QRCODE_URL,
@@ -8,7 +8,7 @@ from .config import (KTP_WECHAT_QRCODE_URL,
                      KTP_FIGURE_CODE_URL,
                      KTP_SEND_CODE_URL,
                      KTP_LOGIN_PHONE_URL)
-from .utils import on_qrcode_login, login_required
+from .utils import on_qrcode_login
 
 
 class KETANGPAI(Net):
@@ -139,5 +139,3 @@ class KETANGPAI(Net):
     @staticmethod
     def gen_timestamp() -> Tuple[float, int]:
         return (timestamp := datetime.now().timestamp()), int(timestamp * 1000)
-
-

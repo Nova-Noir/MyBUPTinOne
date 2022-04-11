@@ -13,7 +13,7 @@ JWGL_KB_URL = JWGL_FRAME_URL + "/main_index_loadkb.jsp"
 JWGL_XS_MAIN_NEW_URL = JWGL_FRAME_URL + "/xsMain_new.jsp?t1=1"
 
 KTP_BASE_URL = "https://www.ketangpai.com"
-KTP_API_BASE_URL = "https://openapiv5.ketangpai.com/" # This contains '/' at the end.
+KTP_API_BASE_URL = "https://openapiv5.ketangpai.com/"  # This contains '/' at the end.
 KTP_WECHAT_QRCODE_URL = KTP_API_BASE_URL + "/wechat/login"
 KTP_CHECK_WECHAT_LOGIN_URL = KTP_API_BASE_URL + "/UserApi/checkWechatCode"
 KTP_LOGIN_URL = KTP_API_BASE_URL + "/UserApi/login"

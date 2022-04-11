@@ -1,16 +1,16 @@
 import base64
+from datetime import datetime
 from typing import Optional, Union, AnyStr, Dict
 
 from aiohttp import ClientResponse
 from bs4 import BeautifulSoup
-from datetime import datetime
 
 from .basicNet import Net
 from .config import JWGL_LOGIN_TO_XK_URL, JWGL_KB_URL
 from .exception import ProxyError
+from .typing import Lesson_Dict, Schedule_Dict
 from .utils import login_required
 from .webvpn import WebVPN
-from .typing import Lesson_Dict, Schedule_Dict
 
 
 class JWGL(Net):
@@ -113,7 +113,7 @@ class JWGL_PARSER:
         # Lessons
         no_schedule_lessons = soup.find("div").text.split(":")[-1]
         data[0] = Schedule_Dict({"weekday": 0,
-                                "lessons": [name for name in no_schedule_lessons.split(",")[:-1]]})
+                                 "lessons": [name for name in no_schedule_lessons.split(",")[:-1]]})
         lesson_attr_dict = {
             "课程学分": "score",
             "课程属性": "type",

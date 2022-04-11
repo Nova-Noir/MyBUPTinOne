@@ -12,4 +12,3 @@ class ProxyError(BaseException):
 
 class QRCodeExpiredException(BaseException):
     pass
-
