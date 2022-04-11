@@ -122,19 +122,18 @@ class JWGL_PARSER:
             "上课地点": 'place',
             "分组名": "sort"
         }
-        lesson_idx = 0
-        lesson_time = ''
-        week_idx = 0
 
-        for lesson in soup.find_all("td"):
+        trs = weekdays.find_all_next("tr")
+        for row in trs:
+            crs_idx = row.find_next("td")
+            text = crs_idx.get_text(separator='|', strip=True).split("|")
+            lesson_idx = text[0]
+            lesson_time = text[-1]
 
-            if (i := lesson.get_text(separator="|", strip=True).split("|")[0]).isdigit():
-                lesson_idx = int(i)
-                lesson_time = lesson.get_text(separator="|", strip=True).split("|")[-1]
-                week_idx = 1
-            else:
-                p = lesson.find_next('p')
-                if "<p " not in str(lesson) or p is None:
+            for i in range(1, 8):
+                crs_idx = crs_idx.find_next("td")
+                p = crs_idx.find('p')
+                if p is None:
                     lesson_dict = {
                         k: ""
                         for k in lesson_attr_dict.values()
@@ -148,7 +147,5 @@ class JWGL_PARSER:
                             lesson_dict[lesson_attr_dict[k[0]]] = k[1]
                 lesson_dict['time'] = lesson_time
                 lesson_dict['lesson_index'] = lesson_idx
-                data[week_idx]['lessons'].append(Lesson_Dict(lesson_dict))
-                week_idx += 1
-
+                data[i]['lessons'].append(Lesson_Dict(lesson_dict))
         return data
