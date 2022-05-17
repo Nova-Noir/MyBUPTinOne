@@ -100,11 +100,7 @@ class WebVPN(Net):
                 host = url[:idx]
                 path = url[idx:]
                 url = WebVPN.encrypt(host, wrdvpnKey, wrdvpnIV) + path
-        if port:
-            url = "/" + protocol + "-" + port + "/" + url
-        else:
-            url = "/" + protocol + "/" + url
-
+        url = f"/{protocol}-{port}/{url}" if port else f"/{protocol}/{url}"
         return WEBVPN_BASE_URL + url
 
     @staticmethod
@@ -114,7 +110,7 @@ class WebVPN(Net):
             key = key.encode('UTF-8')
         text = WebVPN.text_right_append(text, 'utf8')
         enc = AES_encrypt(text, key, iv, AES.MODE_CFB, 'UTF-8', segment_size=16 * 8)
-        return key.hex() + enc.hex()[:length * 2 if length * 2 >= len(enc) else len(enc)]
+        return key.hex() + enc.hex()[:max(length * 2, len(enc))]
 
     @staticmethod
     def text_right_append(text: AnyStr, mode: str) -> AnyStr:

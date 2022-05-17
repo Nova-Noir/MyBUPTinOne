@@ -39,8 +39,9 @@ class JWGL(Net):
         data = {
             "userAccount": self.username,
             "userPassword": "",
-            "encoded": JWGL.encodeInp(self.username) + "%%%" + JWGL.encodeInp(self.password)
+            "encoded": f"{JWGL.encodeInp(self.username)}%%%{JWGL.encodeInp(self.password)}",
         }
+
         headers = {
             "Content-Type": "application/x-www-form-urlencoded"
         }
@@ -68,24 +69,20 @@ class JWGL(Net):
     @login_required
     @property
     async def cookies(self):
-        if self.proxy is not None:
-            return self.proxy.cookies
-        return self.cookie
+        return self.proxy.cookies if self.proxy is not None else self.cookie
 
     @login_required
     async def get_class_scheduler(self,
                                   time: Optional[Union[datetime, str]] = None,
-                                  time_mode: Optional[str] = '9475847A3F3033D1E05377B5030AA94D') \
-            -> Dict[int, Schedule_Dict]:
+                                  time_mode: Optional[str] = '9475847A3F3033D1E05377B5030AA94D') -> Dict[int, Schedule_Dict]:
         """
         time should be like "2022-02-02",
         time_mode now can only be "9475847A3F3033D1E05377B5030AA94D"
         """
         if time is None:
             time = str(datetime.now().strftime("%Y-%m-%d"))
-        else:
-            if isinstance(time, datetime):
-                time = str(time.strftime("%Y-%m-%d"))
+        elif isinstance(time, datetime):
+            time = str(time.strftime("%Y-%m-%d"))
 
         data = {
             "rq": time,
@@ -101,19 +98,20 @@ class JWGL_PARSER:
     @staticmethod
     def scheduler(html: AnyStr) -> Dict[int, Schedule_Dict]:
         soup = BeautifulSoup(html, "lxml")
-        # print(soup)
-        data = {}
         # Weekdays
         weekdays = soup.find("tr")
-        for idx in range(1, len(ths := weekdays.find_all('th'))):
-            if "星期" in ths[idx].text:
-                data[idx] = Schedule_Dict({"weekday": ths[idx].text,
-                                           "lessons": []})
+        data = {
+            idx: Schedule_Dict({"weekday": ths[idx].text, "lessons": []})
+            for idx in range(1, len(ths := weekdays.find_all('th')))
+            if "星期" in ths[idx].text
+        }
 
         # Lessons
         no_schedule_lessons = soup.find("div").text.split(":")[-1]
-        data[0] = Schedule_Dict({"weekday": 0,
-                                 "lessons": [name for name in no_schedule_lessons.split(",")[:-1]]})
+        data[0] = Schedule_Dict(
+            {"weekday": 0, "lessons": list(no_schedule_lessons.split(",")[:-1])}
+        )
+
         lesson_attr_dict = {
             "课程学分": "score",
             "课程属性": "type",
